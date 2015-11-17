@@ -33,12 +33,12 @@ class UserStocksController < ApplicationController
         @user_stock = UserStock.new(user: current_user, stock: stock)
       else
         stock = Stock.new_from_lookup(params[:stock_ticker])
-      if stock.save
-        @user_stock = UserStock.new(user: current_user, stock: stock)
-      else
-        @user_stock = nil
-        flash[:error] = "Stock is not available"
-      end
+        if stock.save
+          @user_stock = UserStock.new(user: current_user, stock: stock)
+        else
+          @user_stock = nil
+          flash[:error] = "Stock is not available"
+        end
       end
     end
     respond_to do |format|
